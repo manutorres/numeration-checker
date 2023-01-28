@@ -42,13 +42,18 @@ class DirectorySorter:
     def numeric_rename(self, directory, filename, num_length):
         fullpath = os.path.join(directory, filename)
 
-        name, extension = filename.split('.')
+        name, *extension = filename.split('.')
+        extension = "." + extension[0] if extension else ""
 
         num_pattern = "\d+$" if self.suffix else "^\d+"
-        num = re.search(num_pattern, name).group()
+        match = re.search(num_pattern, name)
+        if match is None:
+            return
+
+        num = match.group()
         extended_num = add_trailing_zeros(num, num_length)
 
-        new_filename = re.sub(num, extended_num, name) + "." + extension
+        new_filename = re.sub(num, extended_num, name) + extension
 
         print(filename, "===>", new_filename)
         new_fullpath = os.path.join(directory, new_filename)
