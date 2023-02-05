@@ -42,7 +42,7 @@ class DirectorySorter:
     def numeric_rename(self, directory, filename, num_length):
         fullpath = os.path.join(directory, filename)
 
-        name, *extension = filename.split('.')
+        name, *extension = filename.rsplit('.', 1)
         extension = "." + extension[0] if extension else ""
 
         num_pattern = "\d+$" if self.suffix else "^\d+"
