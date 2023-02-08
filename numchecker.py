@@ -57,7 +57,7 @@ class DirectorySorter:
 
         print(filename, "===>", new_filename)
         new_fullpath = os.path.join(directory, new_filename)
-        if not self.testmode:
+        if not self.testmode and new_fullpath != fullpath:
             os.rename(fullpath, new_fullpath)
 
 
